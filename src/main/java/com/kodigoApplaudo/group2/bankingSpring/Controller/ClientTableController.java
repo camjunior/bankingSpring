@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/api")
 
-public class ClientController {
+public class ClientTableController {
     @Autowired
     private ClientRepository clientRepository;
 
@@ -32,9 +32,8 @@ public class ClientController {
 
     @RequestMapping("/addClient")
     @ResponseBody
-    public String addClient(Client client){
+    public void addClient(Client client){
         clientRepository.save(client);
-        return "1";
     }
 
     @RequestMapping("/deleteClient")
