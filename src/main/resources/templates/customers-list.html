@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--suppress XmlDuplicatedId -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout-static}">
@@ -12,10 +13,10 @@
                 <div class="row">
                     <div class="col-sm">
                         <i class="fas fa-table me-1"></i>
-                        Clients lists
+                        Customers lists
                     </div>
                     <div class="col-sm">
-                        <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#addClient">
+                        <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#addCustomer">
                             <i class="fa fa-plus"></i>
                             New client
                         </button>
@@ -30,12 +31,14 @@
                 <tr>
                     <th>Client ID</th>
                     <th>Name</th>
+                    <th>Phone number</th>
                     <th></th>
                 </tr>
-                <tr th:each="c : ${clients}">
-                    <td th:utext="${c.customerId}">...</td>
-                    <td th:utext="${c.name}">...</td>
-                    <td><button type="button" class="btn btn-secondary btn-sm" th:attr="onclick=|deleteClient('${c.customerId}')|">
+                <tr th:each="c : ${Customers}">
+                    <td th:utext="${c.customer_id}">...</td>
+                    <td th:utext="${c.customer_name}">...</td>
+                    <td th:utext="${c.phone}">...</td>
+                    <td><button type="button" class="btn btn-secondary btn-sm" th:attr="onclick=|deleteCustomer('${c.customer_id}')|">
                         <i class="fa fa-plus"></i>
                         Delete client
                     </button></td>
@@ -43,23 +46,28 @@
             </table>
         </div>
     </div>
-    <div class="modal fade" id="addClient" tabindex="-1" aria-labelledby="addClient" aria-hidden="true">
+    <div class="modal fade" id="addCustomer" tabindex="-1" aria-labelledby="addCustomer" aria-hidden="true">
         <div class="modal-dialog">
-            <form id="form-add-client" class="modal-content">
+            <form id="form-add-customer" class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addClient">Add new client</h5>
+                    <h5 class="modal-title" id="addCustomer">Add new customer</h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="customerID">Customer ID:</label>
-                        <input type="text" class="form-control" name="customerId" id="customerId" placeholder="">
+                        <label for="customer_id">Customer ID:</label>
+                        <input type="number" class="form-control" name="customer_id" id="customer_id" placeholder="" required>
                     </div>
                     <div class="form-group">
-                        <label for="name">Name:</label>
-                        <input type="text" class="form-control" name="name" id="name" placeholder="">
+                        <label for="customer_name">Name:</label>
+                        <input type="text" class="form-control" name="customer_name" id="customer_name" placeholder="" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone number:(####-####)</label>
+                        <input type="text" class="form-control" name="phone" id="phone" placeholder="####-####"
+                               pattern="^\d{4}[\-]\d{4}" required>
                     </div>
                     <div id="msj-infoClient" class="alert alert-info d-none" role="alert"></div>
                 </div>
@@ -81,21 +89,21 @@
     <script type="text/javascript">
     $(document).ready(() => {
 
-        $('#form-add-client').submit((e) => {
+        $('#form-add-customer').submit((e) => {
                 e.preventDefault();
-                let values = $('#form-add-client').serialize();
-                    $.post('addClient',values, (data) => {
+                let values = $('#form-add-customer').serialize();
+                    $.post('addCustomer',values, (data) => {
                         window.location.reload(true);
                     });
             });
         });
 
 
-        function deleteClient(id){
+        function deleteCustomer(id){
 
-            $.post('deleteClient',
+            $.post('deleteCustomer',
             {
-                customerId: id
+                customer_id: id
             },
             (data) => {
                window.location.reload(true);
