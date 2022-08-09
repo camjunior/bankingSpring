@@ -37,7 +37,6 @@ public class Account {
         this.id = id;
         this.client = client;
         this.balance = balance;
-
         this.dataCriacao = dataCriacao;
     }
 
