@@ -23,8 +23,8 @@ public class Client {
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "CUSTOMERID")
-    private String customerId;
+    @Column(name = "ID")
+    private Long id;
 
     @Getter
     @Setter
@@ -36,16 +36,9 @@ public class Client {
     @Column(name = "DIU")
     private String diu;
 
-    public Client(String customerId, String name, String diu) {
-        this.customerId = customerId;
+    public Client(Long id, String name, String diu) {
+        this.id = id;
         this.name = name;
         this.diu = diu;
     }
-
-    /*
-     * public Client(Collection<String> name, Set<String> customerId) {
-     * this.name = String.valueOf(name);
-     * this.customerId = String.valueOf(customerId);
-     * }
-     */
 }
