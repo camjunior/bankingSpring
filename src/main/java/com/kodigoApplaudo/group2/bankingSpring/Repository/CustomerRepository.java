@@ -1,11 +1,11 @@
 package com.kodigoApplaudo.group2.bankingSpring.Repository;
 
-import com.kodigoApplaudo.group2.bankingSpring.Model.Client;
+import com.kodigoApplaudo.group2.bankingSpring.Model.Customer;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ClientRepository extends JpaRepository<Client, String> {
+public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
 }
