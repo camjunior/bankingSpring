@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head >
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Accounts</title>
+    <link type="text/css"  href="../static/css/styles.css"  rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="layoutSidenav_content">
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Welcome!
+        </div>
+        <div class="card-header">
+            This is your account list
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <tr>
+                    <th>Account number</th>
+                    <th>Current balance</th>
+                    <th colspan="2">Actions</th>
+                    <th>History</th>
+                </tr>
+                <tr th:each="c : ${clients}">
+                    <td th:utext="${c.customerId}">account1</td>
+                    <td th:utext="${c.customerId}">9999.99</td>
+                    <td>
+                        <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#makeDeposit">
+                            Deposit
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#makeWithdraw">
+                            Withdraw
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-secondary btn-sm" onclick="deleteClient()">
+                            Get Transaction History
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="modal fade" id="makeDeposit" tabindex="-1" aria-labelledby="addClient" aria-hidden="true">
+        <div class="modal-dialog">
+            <form id="form-add-client" class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addClient">Deposit</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="depositAmount">Amount to deposit:</label>
+                        <input type="text" class="form-control" name="depositAmount" id="depositAmount" placeholder="">
+                    </div>
+                    <div id="msj-infoDeposit" class="alert alert-info d-none" role="alert"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" value="Submit" class="btn btn-primary btn-sm">
+                        <i class="fas fa-save"></i>
+                        Save
+                    </button>
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
+                        <i class="fas fa-times-circle"></i>
+                        Close
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal fade" id="makeWithdraw" tabindex="-1" aria-labelledby="addClient" aria-hidden="true">
+        <div class="modal-dialog">
+            <form id="form-add-client" class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addClient">Withdraw</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="withdrawAmount">Amount to withdraw: </label>
+                        <input type="text" class="form-control" name="withdrawAmount" id="withdrawAmount" placeholder="">
+                    </div>
+                    <div id="msj-infoClient" class="alert alert-info d-none" role="alert"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" value="Submit" class="btn btn-primary btn-sm">
+                        <i class="fas fa-save"></i>
+                        Save
+                    </button>
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
+                        <i class="fas fa-times-circle"></i>
+                        Close
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="../static/js/scripts.js"></script>
+</body>
+</html>

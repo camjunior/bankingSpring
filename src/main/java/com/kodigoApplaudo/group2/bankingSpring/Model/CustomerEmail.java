@@ -9,17 +9,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name ="Accounts")
-public class Account {
-
+@Table(name="customerEmail")
+public class CustomerEmail {
     @Id
-    @Column(name="account_id")
-    @Getter @Setter private int account_id;
+    @Column(name="idEmail")
+    @Getter @Setter private int idEmail;
 
     @Column(name="customer_id")
     @Getter @Setter private int customer_id;
 
-    @Column(name="balance")
-    @Getter @Setter double balance;
-
+    @Column(name="email")
+    @Getter @Setter private String email;
 }
