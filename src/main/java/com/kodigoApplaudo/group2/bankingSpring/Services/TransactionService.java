@@ -18,7 +18,7 @@ public class TransactionService {
 
     @Autowired
     private AccountRepository accountRepository;
-
+    /*
     public Account deposit(BigDecimal amount, long id) throws Exception {
         Optional<Account> opAccount = accountRepository.findById(id);
 
@@ -60,6 +60,6 @@ public class TransactionService {
             throw new Exception();
         }
 
-    }
+    }*/
 
 }

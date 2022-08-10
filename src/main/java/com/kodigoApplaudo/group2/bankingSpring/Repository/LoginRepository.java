@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.kodigoApplaudo.group2.bankingSpring.Model.Login;
 
-public interface LoginRepository extends JpaRepository<Login, String> {
+public interface LoginRepository {
     Login findByUsername(String username);
 }

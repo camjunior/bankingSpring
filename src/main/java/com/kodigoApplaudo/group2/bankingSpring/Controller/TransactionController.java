@@ -12,8 +12,9 @@ public class TransactionController {
 
     private TransactionService transactionService;
 
+    /*
     @PostMapping("/deposit/{idConta}")
-    public Account deposit(BigDecimal amount, @PathVariable("id") Long id) throws Exception {
+    public Account deposit(double amount, @PathVariable("id") Long id) throws Exception {
         return transactionService.deposit(amount, id);
     }
 
@@ -21,5 +22,5 @@ public class TransactionController {
     public Account withdraw(BigDecimal amount, @PathVariable("id") Long id) throws Exception {
         return transactionService.withdraw(amount, id);
     }
-
+    */
 }

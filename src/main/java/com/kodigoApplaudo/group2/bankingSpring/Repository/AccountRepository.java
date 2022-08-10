@@ -10,6 +10,4 @@ import com.kodigoApplaudo.group2.bankingSpring.Model.Account;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
 
-    public List<Account> findByFlagAtivo(Boolean flagAtivo);
-
 }

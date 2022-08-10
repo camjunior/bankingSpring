@@ -38,7 +38,7 @@ public class AccountController {
     }
 
     @GetMapping("/balance/{id}")
-    public BigDecimal checkBalance(@PathVariable("id") Long id) throws Exception {
+    public double checkBalance(@PathVariable("id") Long id) throws Exception {
         Optional<Account> account = accountRepository.findById(id);
         if (account.isPresent()) {
             return account.get().getBalance();

@@ -1,4 +1,4 @@
-package com.kodigoApplaudo.group2.bankingSpring.Security;
+/*package com.kodigoApplaudo.group2.bankingSpring.Security;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -56,4 +56,4 @@ public class TokenAuthenticationService {
         return null;
     }
 
-}
+}*/

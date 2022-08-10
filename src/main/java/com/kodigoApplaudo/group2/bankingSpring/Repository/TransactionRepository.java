@@ -10,5 +10,5 @@ import com.kodigoApplaudo.group2.bankingSpring.Model.Transaction;
 
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
-    public List<Transaction> findByAccount(Account account);
+
 }

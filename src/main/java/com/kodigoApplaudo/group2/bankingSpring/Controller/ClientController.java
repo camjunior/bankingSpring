@@ -1,22 +1,16 @@
 package com.kodigoApplaudo.group2.bankingSpring.Controller;
 
-import com.kodigoApplaudo.group2.bankingSpring.Model.Client;
-import com.kodigoApplaudo.group2.bankingSpring.Repository.ClientRepository;
-
+import com.kodigoApplaudo.group2.bankingSpring.Model.Customer;
+import com.kodigoApplaudo.group2.bankingSpring.Repository.CustomerRepository;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ClientController {
 
     @Autowired
-    private ClientRepository clientRepository;
+    private CustomerRepository clientRepository;
 
     @ApiOperation(value = "Retorna uma lista de pessoas")
     @ApiResponses(value = {
@@ -36,39 +30,39 @@ public class ClientController {
             @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
     })
     @RequestMapping(value = "/client", method = RequestMethod.GET, produces = "application/json")
-    public List<Client> Get() {
+    public List<Customer> Get() {
         return clientRepository.findAll();
     }
 
     @RequestMapping(value = "/client/{id}", method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity<Client> GetById(@PathVariable(value = "id") long id) {
-        Optional<Client> client = clientRepository.findById(id);
+    public ResponseEntity<Customer> GetById(@PathVariable(value = "id") long id) {
+        Optional<Customer> client = clientRepository.findById(id);
         if (client.isPresent())
-            return new ResponseEntity<Client>(client.get(), HttpStatus.OK);
+            return new ResponseEntity<Customer>(client.get(), HttpStatus.OK);
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @RequestMapping(value = "/client", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
-    public Client Post(@Validated @RequestBody Client client) {
+    public Customer Post(@Validated @RequestBody Customer client) {
         return clientRepository.save(client);
     }
 
     @RequestMapping(value = "/client/{id}", method = RequestMethod.PUT, produces = "application/json", consumes = "application/json")
-    public ResponseEntity<Client> Put(@PathVariable(value = "id") long id, @Validated @RequestBody Client newClient) {
-        Optional<Client> oldClient = clientRepository.findById(id);
+    public ResponseEntity<Customer> Put(@PathVariable(value = "id") long id, @Validated @RequestBody Customer newClient) {
+        Optional<Customer> oldClient = clientRepository.findById(id);
         if (oldClient.isPresent()) {
-            Client client = oldClient.get();
-            client.setName(newClient.getName());
+            Customer client = oldClient.get();
+            client.setCustomer_name(newClient.getCustomer_name());
             clientRepository.save(client);
-            return new ResponseEntity<Client>(client, HttpStatus.OK);
+            return new ResponseEntity<Customer>(client, HttpStatus.OK);
         } else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @RequestMapping(value = "/client/{id}", method = RequestMethod.DELETE, produces = "application/json")
     public ResponseEntity<Object> Delete(@PathVariable(value = "id") long id) {
-        Optional<Client> client = clientRepository.findById(id);
+        Optional<Customer> client = clientRepository.findById(id);
         if (client.isPresent()) {
             clientRepository.delete(client.get());
             return new ResponseEntity<>(HttpStatus.OK);
