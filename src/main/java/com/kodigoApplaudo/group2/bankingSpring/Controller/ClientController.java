@@ -2,11 +2,11 @@ package com.kodigoApplaudo.group2.bankingSpring.Controller;
 
 import com.kodigoApplaudo.group2.bankingSpring.Model.Customer;
 import com.kodigoApplaudo.group2.bankingSpring.Repository.CustomerRepository;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import java.util.List;
 import java.util.Optional;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,18 +23,14 @@ public class ClientController {
     @Autowired
     private CustomerRepository clientRepository;
 
-    @ApiOperation(value = "Retorna uma lista de pessoas")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Retorna a lista de pessoa"),
-            @ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
-            @ApiResponse(code = 500, message = "Foi gerada uma exceção"),
-    })
     @RequestMapping(value = "/client", method = RequestMethod.GET, produces = "application/json")
+    @Operation(summary = "List of customers")
     public List<Customer> Get() {
         return clientRepository.findAll();
     }
 
     @RequestMapping(value = "/client/{id}", method = RequestMethod.GET, produces = "application/json")
+    @Operation(summary = "Save a customer by id")
     public ResponseEntity<Customer> GetById(@PathVariable(value = "id") long id) {
         Optional<Customer> client = clientRepository.findById(id);
         if (client.isPresent())
@@ -44,11 +40,13 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/client", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+    @Operation(summary = "Create a new client")
     public Customer Post(@Validated @RequestBody Customer client) {
         return clientRepository.save(client);
     }
 
     @RequestMapping(value = "/client/{id}", method = RequestMethod.PUT, produces = "application/json", consumes = "application/json")
+    @Operation(summary = "Updating customer by id")
     public ResponseEntity<Customer> Put(@PathVariable(value = "id") long id, @Validated @RequestBody Customer newClient) {
         Optional<Customer> oldClient = clientRepository.findById(id);
         if (oldClient.isPresent()) {
@@ -61,6 +59,7 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/client/{id}", method = RequestMethod.DELETE, produces = "application/json")
+    @Operation(summary = "Delete customer by id")
     public ResponseEntity<Object> Delete(@PathVariable(value = "id") long id) {
         Optional<Customer> client = clientRepository.findById(id);
         if (client.isPresent()) {
