@@ -35,7 +35,7 @@ public class AccountViewCustomerController {
     }
 
     @RequestMapping("/deposit")
-    @ResponseBody
+    @ResponseBody //inicio
     public void deposit(@RequestParam Map<String,String> requestParams) throws Exception{
         String id = requestParams.get("account_id");
         String depositAmount = requestParams.get("depositAmount");
@@ -81,6 +81,8 @@ public class AccountViewCustomerController {
 
             accountRepository.save(account1);
             transactionService.addTransaction(account1.getAccount_id(),Double.parseDouble(withdrawAmount), TransactionType.WITHDRAW);
+
+            //fin
         }
 
     }
