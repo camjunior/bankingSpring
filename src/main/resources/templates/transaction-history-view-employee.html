@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout-static}">
+<head th:replace="layout-static :: head">
+</head>
+<body>
+<div class="nav" layout:fragment="nav-content">
+    <div class="sb-sidenav-menu-heading">Opciones</div>
+    <a class="nav-link" th:href="@{/view/list?id={account_id}(account_id=${customerId})}">
+        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+        Go back
+    </a>
+</div>
+<div id="layoutSidenav_content" layout:fragment="page-content">
+    <div class="card mb-4">
+        <div class="card-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
+                        <i class="fas fa-table me-1"></i>
+                        Transaction History
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <table class="table table-striped">
+                <tr>
+                    <th>Transaction ID</th>
+                    <th>Account ID</th>
+                    <th>Date of transaction</th>
+                    <th>Time of transaction</th>
+                    <th>Amount</th>
+                    <th>Type of transaction</th>
+                </tr>
+                <tr th:each="t : ${Transaction}">
+                    <td th:utext="${t.transact_id}">...</td>
+                    <td th:utext="${t.account_id}">...</td>
+                    <td th:utext="${#dates.format(t.transact_date, 'dd-MMM-yyyy')}">...</td>
+                    <td th:utext="${#dates.format(t.transact_time, 'HH:mm a')}">...</td>
+                    <td th:utext="${t.balance}">...</td>
+                    <td th:utext="${t.transact_type}">...</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div layout:fragment="script-section">
+    <script type="text/javascript">
+    </script>
+</div>
+</body>
+</html>

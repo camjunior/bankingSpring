@@ -1,11 +1,18 @@
 <!DOCTYPE html>
-<!--suppress XmlDuplicatedId -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout-static}">
 <head th:replace="layout-static :: head">
 </head>
 <body>
+<div class="nav" layout:fragment="nav-content">
+    <div class="sb-sidenav-menu-heading">Opciones</div>
+    <a class="nav-link" th:href="@{/view/customers-table}">
+        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+        Clients
+    </a>
+
+</div>
 <div id="layoutSidenav_content" layout:fragment="page-content">
     <div class="card mb-4">
         <div class="card-header">
@@ -33,6 +40,7 @@
                     <th>Name</th>
                     <th>Phone number</th>
                     <th></th>
+                    <th></th>
                 </tr>
                 <tr th:each="c : ${Customers}">
                     <td th:utext="${c.customer_id}">...</td>
@@ -42,6 +50,14 @@
                         <i class="fa fa-plus"></i>
                         Delete client
                     </button></td>
+                    <td>
+                        <form id="invisible_form" action="/view/list" method="post">
+                            <input id="id" name="id" type="hidden" th:attr="value=|${c.customer_id}|">
+                            <button type="submit" class="btn btn-secondary btn-sm">
+                                Open accounts
+                            </button>
+                        </form>
+                    </td>
                 </tr>
             </table>
         </div>
@@ -109,6 +125,7 @@
                window.location.reload(true);
             });
         }
+
 </script>
 </div>
 </body>

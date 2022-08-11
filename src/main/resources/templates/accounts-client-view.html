@@ -1,17 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" >
-<head >
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Accounts</title>
-    <link type="text/css"  href="../static/css/styles.css"  rel="stylesheet" />
-    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+<!--suppress XmlDuplicatedId -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout-static}">
+<head th:replace="layout-static :: head">
 </head>
 <body>
-<div id="layoutSidenav_content">
+<div id="layoutSidenav_content" layout:fragment="page-content">
     <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-table me-1"></i>
@@ -28,41 +23,49 @@
                     <th colspan="2">Actions</th>
                     <th>History</th>
                 </tr>
-                <tr th:each="c : ${clients}">
-                    <td th:utext="${c.customerId}">account1</td>
-                    <td th:utext="${c.customerId}">9999.99</td>
+                <tr th:each="a : ${accounts}">
+                    <td th:utext="${a.account_id}">...</td>
+                    <td th:utext="${a.balance}">...</td>
                     <td>
-                        <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#makeDeposit">
+                        <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#makeDeposit"
+                                th:attr="onclick=|accountSelectedDeposit('${a.account_id}')|">
                             Deposit
                         </button>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#makeWithdraw">
+                        <button type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#makeWithdraw"
+                                th:attr="onclick=|accountSelectedWithdraw('${a.account_id}')|">
                             Withdraw
                         </button>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-secondary btn-sm" onclick="deleteClient()">
-                            Get Transaction History
-                        </button>
+                        <form id="invisible_form" action="/view/transaction-history" method="post">
+                            <input id="id" name="id" type="hidden" th:attr="value=|${a.account_id}|">
+                            <button type="submit" class="btn btn-secondary btn-sm">
+                                Get Transaction History
+                            </button>
+                        </form>
                     </td>
                 </tr>
             </table>
         </div>
     </div>
-    <div class="modal fade" id="makeDeposit" tabindex="-1" aria-labelledby="addClient" aria-hidden="true">
+    <div class="modal fade" id="makeDeposit" tabindex="-1" aria-labelledby="makeDeposit" aria-hidden="true">
         <div class="modal-dialog">
-            <form id="form-add-client" class="modal-content">
+            <form id="form-make-deposit" class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addClient">Deposit</h5>
+                    <h5 class="modal-title" id="makeDeposit">Deposit</h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
+                        <input type="hidden" class="form-control" name="account_id" id="accountSelectedDeposit" value="">
+                    </div>
+                    <div class="form-group">
                         <label for="depositAmount">Amount to deposit:</label>
-                        <input type="text" class="form-control" name="depositAmount" id="depositAmount" placeholder="">
+                        <input type="number" class="form-control" name="depositAmount" id="depositAmount" placeholder="" step="any">
                     </div>
                     <div id="msj-infoDeposit" class="alert alert-info d-none" role="alert"></div>
                 </div>
@@ -79,24 +82,27 @@
             </form>
         </div>
     </div>
-    <div class="modal fade" id="makeWithdraw" tabindex="-1" aria-labelledby="addClient" aria-hidden="true">
+    <div class="modal fade" id="makeWithdraw" tabindex="-1" aria-labelledby="makeWithdraw" aria-hidden="true">
         <div class="modal-dialog">
-            <form id="form-add-client" class="modal-content">
+            <form id="form-make-withdraw" class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addClient">Withdraw</h5>
+                    <h5 class="modal-title" id="madeWithdraw">Withdraw</h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="withdrawAmount">Amount to withdraw: </label>
-                        <input type="text" class="form-control" name="withdrawAmount" id="withdrawAmount" placeholder="">
+                        <input type="hidden" class="form-control" name="account_id" id="accountSelectedWithdraw" value="">
                     </div>
-                    <div id="msj-infoClient" class="alert alert-info d-none" role="alert"></div>
+                    <div class="form-group">
+                        <label for="withdrawAmount">Amount to withdraw: </label>
+                        <input type="number" class="form-control" name="withdrawAmount" id="withdrawAmount" placeholder="" step="any">
+                    </div>
+                    <div id="msj-infoWithdraw" class="alert alert-info d-none" role="alert"></div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" value="Submit" class="btn btn-primary btn-sm">
+                    <button type="submit" value="Submit" class="btn btn-primary btn-sm" >
                         <i class="fas fa-save"></i>
                         Save
                     </button>
@@ -109,7 +115,37 @@
         </div>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-<script src="../static/js/scripts.js"></script>
+<div layout:fragment="script-section">
+    <script type="text/javascript">
+    $(document).ready(() => {
+
+        $('#form-make-deposit').submit((e) => {
+                e.preventDefault();
+                let values = $('#form-make-deposit').serialize();
+                    $.post('deposit',values, (data) => {
+                        window.location.reload(true);
+                    });
+            });
+
+        $('#form-make-withdraw').submit((e) => {
+                e.preventDefault();
+                let values = $('#form-make-withdraw').serialize();
+                    $.post('withdraw',values, (data) => {
+                        window.location.reload(true);
+                    });
+            });
+        });
+
+        function accountSelectedDeposit(id){
+            document.getElementById('accountSelectedDeposit').value = id;
+        }
+
+        function accountSelectedWithdraw(id){
+            document.getElementById('accountSelectedWithdraw').value = id;
+        }
+
+
+</script>
+</div>
 </body>
 </html>
