@@ -30,8 +30,8 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/client/{id}", method = RequestMethod.GET, produces = "application/json")
-    @Operation(summary = "Save a customer by id")
-    public ResponseEntity<Customer> GetById(@PathVariable(value = "id") long id) {
+    @Operation(summary = "Get a customer by id")
+    public ResponseEntity<Customer> GetById(@PathVariable(value = "id") int id) {
         Optional<Customer> client = clientRepository.findById(id);
         if (client.isPresent())
             return new ResponseEntity<Customer>(client.get(), HttpStatus.OK);
@@ -47,7 +47,7 @@ public class ClientController {
 
     @RequestMapping(value = "/client/{id}", method = RequestMethod.PUT, produces = "application/json", consumes = "application/json")
     @Operation(summary = "Updating customer by id")
-    public ResponseEntity<Customer> Put(@PathVariable(value = "id") long id, @Validated @RequestBody Customer newClient) {
+    public ResponseEntity<Customer> Put(@PathVariable(value = "id") int id, @Validated @RequestBody Customer newClient) {
         Optional<Customer> oldClient = clientRepository.findById(id);
         if (oldClient.isPresent()) {
             Customer client = oldClient.get();
@@ -60,7 +60,7 @@ public class ClientController {
 
     @RequestMapping(value = "/client/{id}", method = RequestMethod.DELETE, produces = "application/json")
     @Operation(summary = "Delete customer by id")
-    public ResponseEntity<Object> Delete(@PathVariable(value = "id") long id) {
+    public ResponseEntity<Object> Delete(@PathVariable(value = "id") int id) {
         Optional<Customer> client = clientRepository.findById(id);
         if (client.isPresent()) {
             clientRepository.delete(client.get());
