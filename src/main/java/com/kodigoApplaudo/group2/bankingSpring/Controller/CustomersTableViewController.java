@@ -10,17 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/api")
+@RequestMapping("/view")
 
-public class CustomersTableController {
+public class CustomersTableViewController {
     @Autowired
     private CustomerRepository customerRepository;
-
-    @GetMapping("/clients")
-    public List<Customer> getAllClients() {
-
-        return customerRepository.findAll();
-    }
 
     @GetMapping("/customers-table")
     public String getClients(Model model){
