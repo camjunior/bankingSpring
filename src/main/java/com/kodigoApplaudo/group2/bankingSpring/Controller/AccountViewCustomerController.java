@@ -22,9 +22,9 @@ import java.util.Optional;
 public class AccountViewCustomerController {
 
     @Autowired
-    AccountRepository accountRepository;
+    private AccountRepository accountRepository;
     @Autowired
-    TransactionService transactionService;
+    private TransactionService transactionService;
 
     @GetMapping("/my-accounts")
     public String getList(@RequestParam(name="id", required=true) String id, Model model) {

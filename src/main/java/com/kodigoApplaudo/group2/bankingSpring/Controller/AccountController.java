@@ -16,6 +16,8 @@ import com.kodigoApplaudo.group2.bankingSpring.Repository.AccountRepository;
 
 @Controller
 public class AccountController {
+    /*
+
     @Autowired
     AccountRepository accountRepository;
 
@@ -46,5 +48,7 @@ public class AccountController {
             throw new Exception();
         }
     }
+
+     */
 
 }

@@ -19,9 +19,9 @@ import java.util.Optional;
 @RequestMapping("/view")
 public class TransactionHistoryViewController {
     @Autowired
-    AccountRepository accountRepository;
+    private AccountRepository accountRepository;
     @Autowired
-    TransactionRepository transactionRepository;
+    private TransactionRepository transactionRepository;
 
     @RequestMapping("/transaction-history")
     public String getHistory(@RequestParam(name="id", required=true) String id, Model model) {

@@ -17,9 +17,9 @@ import java.util.Optional;
 public class AccountViewEmployeeController {
 
     @Autowired
-    AccountRepository accountRepository;
+    private AccountRepository accountRepository;
     @Autowired
-    CustomerRepository customerRepository;
+    private CustomerRepository customerRepository;
 
     @GetMapping("/customers-accounts")
     public String getList(@RequestParam(name="id", required=true) String id, Model model) {
