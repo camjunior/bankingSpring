@@ -1,6 +1,7 @@
 package com.kodigoApplaudo.group2.bankingSpring.Controller;
 
 import com.kodigoApplaudo.group2.bankingSpring.Model.Employee;
+import com.kodigoApplaudo.group2.bankingSpring.Model.Manager;
 import com.kodigoApplaudo.group2.bankingSpring.Repository.EmployeeRepository;
 import com.kodigoApplaudo.group2.bankingSpring.Repository.ManagerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,11 @@ public class ManagerController {
     @GetMapping("/getEmployeeList")
     public List<Employee> getEmployeeList(){
         return employeeRepository.findAll();
+    }
+
+    @GetMapping("/getManagerList")
+    public List<Manager> getManagerList(){
+        return managerRepository.findAll();
     }
 
     @PostMapping("/addEmployee")

@@ -2,6 +2,8 @@ package com.kodigoApplaudo.group2.bankingSpring.Controller;
 
 import com.kodigoApplaudo.group2.bankingSpring.Model.Customer;
 import com.kodigoApplaudo.group2.bankingSpring.Repository.CustomerRepository;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,13 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/api")
 public class ClientController {
 
     @Autowired
@@ -37,6 +36,15 @@ public class ClientController {
             return new ResponseEntity<Customer>(client.get(), HttpStatus.OK);
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/getClient")
+    @Operation(summary = "Get a customer by id")
+    public List<Customer> getList(@RequestParam(name = "id") int id) {
+        Optional<Customer> account = clientRepository.findById(id);
+        List<Customer> list = new ArrayList<Customer>();
+        list.add(account.get());
+        return list;
     }
 
     @RequestMapping(value = "/client", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")

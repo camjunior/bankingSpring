@@ -25,14 +25,14 @@ public class CustomersTableViewController {
         return "customers-list";
     }
 
-    @RequestMapping("/addCustomer")
+    @PostMapping("/addCustomer")
     @ResponseBody
     @Operation(summary = "View of create new customer")
     public void addCustomer(Customer client){
         customerRepository.save(client);
     }
 
-    @RequestMapping("/deleteCustomer")
+    @PostMapping("/deleteCustomer")
     @ResponseBody
     @Operation(summary = "view for delete a customer")
     public void deleteCustomer(Customer client){

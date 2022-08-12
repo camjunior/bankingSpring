@@ -16,7 +16,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/**").permitAll()
+                .antMatchers(HttpMethod.PUT, "/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/**").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/client/**").permitAll()
+                .antMatchers(HttpMethod.PUT, "/api/client/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/client/**").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/api/client/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/v2/api-docs").permitAll()
                 .antMatchers(HttpMethod.GET, "/swagger-ui.html").permitAll()
                 .antMatchers(HttpMethod.GET, "/webjars/**").permitAll()

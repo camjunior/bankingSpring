@@ -6,6 +6,7 @@ import com.kodigoApplaudo.group2.bankingSpring.Model.TransactionType;
 import com.kodigoApplaudo.group2.bankingSpring.Repository.AccountRepository;
 import com.kodigoApplaudo.group2.bankingSpring.Repository.TransactionRepository;
 import com.kodigoApplaudo.group2.bankingSpring.Services.TransactionService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +28,7 @@ public class AccountViewCustomerController {
     private TransactionService transactionService;
 
     @GetMapping("/my-accounts")
+    @Operation(summary = "View for customer to check accounts")
     public String getList(@RequestParam(name="id", required=true) String id, Model model) {
         int customerId = Integer.valueOf(id);
         List<Account> accounts = accountRepository.findByCustomerId(customerId);
@@ -34,7 +36,7 @@ public class AccountViewCustomerController {
         return "accounts-client-view";
     }
 
-    @RequestMapping("/deposit")
+    @PostMapping("/deposit")
     @ResponseBody //inicio
     public void deposit(@RequestParam Map<String,String> requestParams) throws Exception{
         String id = requestParams.get("account_id");
@@ -58,7 +60,7 @@ public class AccountViewCustomerController {
 
     }
 
-    @RequestMapping("/withdraw")
+    @PostMapping("/withdraw")
     @ResponseBody
     public void withdraw(@RequestParam Map<String,String> requestParams) throws Exception{
         String id = requestParams.get("account_id");
