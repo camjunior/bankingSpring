@@ -22,4 +22,8 @@ public class Manager {
     @Column(name="phone")
     @Getter @Setter private String phone;
 
+    @Column(name="username")
+    @Getter @Setter private String username;
+
+
 }

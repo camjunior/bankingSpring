@@ -13,17 +13,14 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/user")
 public class AccountCalculationController {
 
   @Autowired private AccountRepository accountRepository;
   @Autowired private TransactionService transactionService;
 
   @PostMapping("/depositAccount")
-  public String deposit(@RequestParam Map<String, String> requestParams) throws Exception {
-    String id = requestParams.get("account_id");
-    String depositAmount = requestParams.get("depositAmount");
-    int account_id = Integer.parseInt(id);
+  public String deposit(@RequestParam int account_id, @RequestParam double depositAmount) throws Exception {
 
     Optional<Account> account = accountRepository.findById(account_id);
     double currentBalance = account.get().getBalance();
@@ -41,7 +38,7 @@ public class AccountCalculationController {
 
       accountRepository.save(account1);
       transactionService.addTransaction(
-              account1.getAccount_id(), Double.parseDouble(depositAmount), TransactionType.DEPOSIT);
+              account1.getAccount_id(), depositAmount, TransactionType.DEPOSIT);
 
       return "Deposit of " + depositAmount+ " successful. New balance: " + account1.getBalance();
 
@@ -55,10 +52,7 @@ public class AccountCalculationController {
 
   @PostMapping("/withdrawAccount")
   @ResponseBody
-  public String withdraw(@RequestParam Map<String,String> requestParams) throws Exception{
-    String id = requestParams.get("account_id");
-    String withdrawAmount = requestParams.get("withdrawAmount");
-    int account_id = Integer.parseInt(id);
+  public String withdraw(@RequestParam int account_id, @RequestParam double withdrawAmount ) throws Exception{
 
     Optional<Account> account = accountRepository.findById(account_id);
     double currentBalance = account.get().getBalance();
@@ -75,7 +69,7 @@ public class AccountCalculationController {
       Account account1 = account.get();
 
       accountRepository.save(account1);
-      transactionService.addTransaction(account1.getAccount_id(),Double.parseDouble(withdrawAmount), TransactionType.WITHDRAW);
+      transactionService.addTransaction(account1.getAccount_id(), withdrawAmount, TransactionType.WITHDRAW);
       return "Withdraw successfull. New balance: " + account1.getBalance();
       //fin
     } else {

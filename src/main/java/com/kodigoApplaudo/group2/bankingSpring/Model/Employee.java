@@ -3,16 +3,13 @@ package com.kodigoApplaudo.group2.bankingSpring.Model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="Employees")
 
 public class Employee {
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="employee_id")
     @Getter @Setter private int employee_id;
 
@@ -24,4 +21,7 @@ public class Employee {
 
     @Column(name="manager_id")
     @Getter @Setter private int manager_id;
+
+    @Column(name="username")
+    @Getter @Setter private String username;
 }

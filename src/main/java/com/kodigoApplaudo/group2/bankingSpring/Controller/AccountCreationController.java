@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/employee")
 public class AccountCreationController {
     @Autowired
     private AccountRepository accountRepository;

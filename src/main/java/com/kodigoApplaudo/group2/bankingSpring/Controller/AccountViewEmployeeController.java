@@ -41,7 +41,7 @@ public class AccountViewEmployeeController {
         return "accounts-employee-view";
     }
 
-    @RequestMapping("/addAccount")
+    @PostMapping("/addAccount")
     @ResponseBody
     public void createAccount(int customer_id){
         Account account = new Account();

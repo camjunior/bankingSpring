@@ -1,6 +1,8 @@
 package com.kodigoApplaudo.group2.bankingSpring.Model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 //import java.util.Collection;
@@ -9,12 +11,13 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "Customers")
-
 public class Customer {
 
 
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="customer_id")
     @Getter @Setter  private int customer_id;
 
@@ -23,6 +26,9 @@ public class Customer {
 
     @Column(name="phone")
     @Getter @Setter private String phone;
+
+    @Column(name="username")
+    @Getter @Setter private String username;
 
 
 }
