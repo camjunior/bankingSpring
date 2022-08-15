@@ -5,7 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -13,7 +15,7 @@ import java.util.Date;
 
 @Entity
 @Table(name="Transactions")
-
+@AllArgsConstructor @NoArgsConstructor
 public class Transaction {
 
     @Id
