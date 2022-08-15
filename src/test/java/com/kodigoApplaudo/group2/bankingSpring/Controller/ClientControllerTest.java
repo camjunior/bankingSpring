@@ -33,7 +33,7 @@ class ClientControllerTest {
         when(customerRepository.findAll()).thenReturn(customerList);
 
         List<Customer> emptyList = clientController.Get();
-
+        //test if clientControler.Get() is able to retreive customer1 or not
         assertEquals(1,emptyList.size());
 
         verify(customerRepository,times(1)).findAll();
